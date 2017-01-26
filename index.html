@@ -32,7 +32,7 @@
                 vec3 invLight = normalize(vNormalMatrix * lightDirection);
                 float diff = dot(vNormal, invLight);
 
-                gl_FragColor = vec4(vec3(diff) + vec3(0.1), 1.0);
+                gl_FragColor = vec4(vec3(diff) + vec3(0.3), 1.0);
             }
         </script>
         <script type="x-shader/x-fragment" id="spec_fs">
