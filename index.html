@@ -32,7 +32,7 @@
                 vec3 invLight = normalize(vNormalMatrix * lightDirection);
                 float diff = dot(vNormal, invLight);
 
-                gl_FragColor = vec4(vec3(diff) + vec3(0.3), 1.0);
+                gl_FragColor = vec4(vec3(diff) * vec3(0.27, 0.38, 0.61), 1.0);
             }
         </script>
         <script type="x-shader/x-fragment" id="spec_fs">
@@ -48,7 +48,7 @@
                 vec3 half_ = normalize(invLight + invCameraLookAt);
                 float diff = dot(vNormal, invLight);
                 float spec = pow(clamp(dot(vNormal, half_), 0.0, 1.0), 50.0);
-                gl_FragColor = vec4(vec3(spec), 1.0);
+                gl_FragColor = vec4(vec3(spec) * vec3(0.27, 0.38, 0.61), 1.0);
             }
         </script>
         <script type="x-shader/x-vertex" id="gauss_vs">
