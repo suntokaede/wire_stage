@@ -32,7 +32,7 @@
                 vec3 invLight = normalize(vNormalMatrix * lightDirection);
                 float diff = dot(vNormal, invLight);
 
-                gl_FragColor = vec4(vec3(diff) * vec3(0.27, 0.38, 0.61), 1.0);
+                gl_FragColor = vec4(diff * vec3(0.27, 0.38, 0.61), 1.0);
             }
         </script>
         <script type="x-shader/x-fragment" id="spec_fs">
@@ -48,7 +48,7 @@
                 vec3 half_ = normalize(invLight + invCameraLookAt);
                 float diff = dot(vNormal, invLight);
                 float spec = pow(clamp(dot(vNormal, half_), 0.0, 1.0), 50.0);
-                gl_FragColor = vec4(vec3(spec) * vec3(0.27, 0.38, 0.61), 1.0);
+                gl_FragColor = vec4(spec * vec3(0.27, 0.38, 0.61), 1.0);
             }
         </script>
         <script type="x-shader/x-vertex" id="gauss_vs">
@@ -121,7 +121,7 @@
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r83/three.js"></script>
         <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
-        <script src="./OBJLoader.js"></script>
+        <script src="./OBJloader.js"></script>
         <script>
             const lambertScene = new THREE.Scene();
             const specScene = new THREE.Scene();
@@ -346,6 +346,19 @@
                 }
                 return weight;
             }
+
+            window.addEventListener("resize", () => {
+                lambertTarget.setSize(window.innerWidth, window.innerHeight);
+                specTarget.setSize(window.innerWidth, window.innerHeight);
+                gaussUniforms.resolution.value = new THREE.Vector2(window.innerWidth, window.innerHeight);
+                gauss_x_target.setSize(window.innerWidth, window.innerHeight);
+                gauss_y_target.setSize(window.innerWidth, window.innerHeight);
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                staticCamera.aspect = window.innerWidth / window.innerHeight;
+                staticCamera.updateProjectionMatrix();
+            });
         </script>
     </body>
 </html>
